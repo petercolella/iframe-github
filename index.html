@@ -11,88 +11,72 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
-    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-      crossorigin="anonymous"
-    ></script> -->
   </head>
   <body>
-    <div class="row" id="navbar">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
         </div>
-      </nav>
-    </div>
-    <div class="row">
-      <div class="col-3" id="column-1">
-        <h1>We don't want this</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores, magnam? Ex perspiciatis culpa et autem
-          totam! Nostrum praesentium aperiam totam, libero consectetur, blanditiis quaerat minus provident labore
-          commodi vel ipsa!
-        </p>
       </div>
-      <div class="col-9" id="column-2">
-        <h1>We do want this</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae deleniti repellendus ut perspiciatis,
-          provident ipsam impedit sequi eos debitis vel commodi laudantium voluptatibus hic eius sit quod maxime quae
-          delectus?
-        </p>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-3" id="column-1">
+          <h1>We don't want this</h1>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores, magnam? Ex perspiciatis culpa et autem
+            totam! Nostrum praesentium aperiam totam, libero consectetur, blanditiis quaerat minus provident labore
+            commodi vel ipsa!
+          </p>
+        </div>
+        <div class="col-9" id="column-2">
+          <h1>We do want this</h1>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae deleniti repellendus ut perspiciatis,
+            provident ipsam impedit sequi eos debitis vel commodi laudantium voluptatibus hic eius sit quod maxime quae
+            delectus?
+          </p>
+          <button id="iframe-btn">Share</button>
+        </div>
       </div>
     </div>
     <script>
-      window.myFunction = function removeContent() {
-        document.getElementById("navbar").remove();
-        document.getElementById("column-1").remove();
-      };
+      function makeDocument() {
+        let doc = document.implementation.createHTMLDocument("New Document");
+        const html = document.querySelector("body");
+        html.querySelector("#navbar").remove();
+        html.querySelector("#column-1").remove();
+        html.querySelector("#iframe-btn").remove();
+
+        try {
+          doc.body.appendChild(html);
+        } catch (e) {
+          console.log(e);
+        }
+
+        const viz = "test";
+        const base = doc.createElement("base");
+        base.href = window.location.origin;
+        doc.head.append(base);
+        const rel = `${viz}.html`;
+        const iframeSrc = new URL(rel, base).href;
+        console.log(iframeSrc);
+      }
+
+      document.getElementById("iframe-btn").onclick = makeDocument;
     </script>
   </body>
 </html>
